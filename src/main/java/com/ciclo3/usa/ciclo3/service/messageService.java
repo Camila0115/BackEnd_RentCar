@@ -22,11 +22,11 @@ public class messageService {
         return MessageRepository.getMessage(id);
     }
     public Message saveMessage(Message message) {
-        if(message.getId() == null){
+        if(message.getidMessage() == null){
             return MessageRepository.saveMessage(message);
         }
         else{
-            Optional<Message> messageAux = MessageRepository.getMessage(message.getId());
+            Optional<Message> messageAux = MessageRepository.getMessage(message.getidMessage());
             if(messageAux.isEmpty()){
                 return MessageRepository.saveMessage(message); 
             }else{

@@ -35,7 +35,7 @@ public class gamaController {
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Gama save(@RequestBody Gama Car) {
-        return GamaService.saveGama(Car);
+    public void save(@RequestBody Gama Car) {
+        GamaService.saveGama(Car);
     }
 }

@@ -22,11 +22,11 @@ public class carService {
         return CarRepository.getCar(id);
     }
     public car saveCar(car Car) {
-        if(Car.getId() == null){
+        if(Car.getidCar() == null){
             return CarRepository.saveCar(Car);
         }
         else{
-            Optional<car> CarAux = CarRepository.getCar(Car.getId());
+            Optional<car> CarAux = CarRepository.getCar(Car.getidCar());
             if(CarAux.isEmpty()){
                 return CarRepository.saveCar(Car); 
             }else{

@@ -22,12 +22,14 @@ public class reservationService {
         return ReservationRepository.getReservation(id);
     }
     public Reservation saveReservation(Reservation reservation) {
-        if(reservation.getId() == null){
+        if(reservation.getidReservation() == null){
+            reservation.setstatus("created");
             return ReservationRepository.saveReservation(reservation);
         }
         else{
-            Optional<Reservation> reservationAux = ReservationRepository.getReservation(reservation.getId());
+            Optional<Reservation> reservationAux = ReservationRepository.getReservation(reservation.getidReservation());
             if(reservationAux.isEmpty()){
+                reservation.setstatus("created");
                 return ReservationRepository.saveReservation(reservation); 
             }else{
                 return reservation;

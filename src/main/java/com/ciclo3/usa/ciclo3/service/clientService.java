@@ -22,11 +22,11 @@ public class clientService {
         return ClientRepository.getClient(id);
     }
     public Client saveClient(Client Client) {
-        if(Client.getId() == null){
+        if(Client.getidClient() == null){
             return ClientRepository.saveClient(Client);
         }
         else{
-            Optional<Client> ClientAux = ClientRepository.getClient(Client.getId());
+            Optional<Client> ClientAux = ClientRepository.getClient(Client.getidClient());
             if(ClientAux.isEmpty()){
                 return ClientRepository.saveClient(Client); 
             }else{

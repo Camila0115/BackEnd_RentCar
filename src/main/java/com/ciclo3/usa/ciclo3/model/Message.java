@@ -6,7 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "message")
@@ -14,32 +18,46 @@ public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Integer carro ;
-    private String texto ;
+    private Integer idMessage;
+    private String messageText;
+    @ManyToOne
+    @JoinColumn(name = "idClient")
+    @JsonIgnoreProperties({"messages","reservation"})
+    Client client;
+    @ManyToOne
+    @JoinColumn(name = "idCar")
+    @JsonIgnoreProperties({"messages","reservation"})
+    car car;
 
     //se estable el get set de id
-    public Integer getId() {
-        return id;
+    public Integer getidMessage() {
+        return idMessage;
     }
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    //se estable el get set de carro
-    public Integer getCarro() {
-        return carro;
-    }
-    public void setCarro(Integer carro) {
-        this.carro = carro;
+    public void setidMessage(Integer idMessage) {
+        this.idMessage = idMessage;
     }
 
     //se estable el get set de texto
-    public String getTexto() {
-        return texto ;
+    public String getmessageText() {
+        return messageText ;
     }
-    public void setTexto(String texto ) {
-        this.texto  = texto ;
+    public void setmessageText(String messageText ) {
+        this.messageText  = messageText ;
     }
 
+    //se estable el get set  del carro asociado al mensaje
+    public car getcar() {
+        return car;
+    }
+    public void setcar(car car) {
+        this.car = car;
+    }
+
+     //se estable el get set del cliente asociado al mensaje
+    public Client getclient() {
+        return client;
+    }
+    public void setclient(Client client) {
+        this.client = client;
+    }
 }
