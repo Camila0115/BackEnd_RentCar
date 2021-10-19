@@ -21,13 +21,14 @@ public class Message implements Serializable {
     private Integer idMessage;
     private String messageText;
     @ManyToOne
-    @JoinColumn(name = "idClient")
-    @JsonIgnoreProperties({"messages","reservation"})
-    Client client;
-    @ManyToOne
     @JoinColumn(name = "idCar")
-    @JsonIgnoreProperties({"messages","reservation"})
+    @JsonIgnoreProperties({"messages","reservations"})
     car car;
+    @ManyToOne
+    @JoinColumn(name = "idClient")
+    @JsonIgnoreProperties({"messages","reservations"})
+    Client client;
+    
 
     //se estable el get set de id
     public Integer getidMessage() {

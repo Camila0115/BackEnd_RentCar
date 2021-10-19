@@ -2,6 +2,7 @@ package com.ciclo3.usa.ciclo3.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -32,11 +33,12 @@ public class car implements Serializable {
     Gama gama;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "car")
-    @JsonIgnoreProperties("car")
-    List<Message> messages;
+    @JsonIgnoreProperties({"car","client"})
+    Set<Message> messages;
+
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "car")
-    @JsonIgnoreProperties("car")
-    List<Reservation> reservation;
+    @JsonIgnoreProperties({"car","client"})
+    List<Reservation> reservations;
 
     //se estable el get set de id
     public Integer getidCar() {
@@ -87,17 +89,17 @@ public class car implements Serializable {
     }
 
     
-    public List<Message> getmessages() {
+    public Set<Message> getmessages() {
         return messages;
     }
-    public void setmessages(List<Message> messages) {
+    public void setmessages(Set<Message> messages) {
         this.messages = messages;
     }
 
-    public List<Reservation> getreservation() {
-        return reservation;
+    public List<Reservation> getreservations() {
+        return reservations;
     }
-    public void setreservation(List<Reservation> reservation) {
-        this.reservation = reservation;
+    public void setreservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

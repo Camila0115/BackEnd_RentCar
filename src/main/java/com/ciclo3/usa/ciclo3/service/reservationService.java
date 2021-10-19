@@ -11,30 +11,39 @@ import java.util.Optional;
 
 @Service
 public class reservationService {
-    
+
     @Autowired
     private reservationgeRepository ReservationRepository;
 
     public List<Reservation> getAllReservation() {
         return (List<Reservation>) ReservationRepository.getAllReservation();
     }
+
     public Optional<Reservation> getReservation(int id) {
         return ReservationRepository.getReservation(id);
     }
+
     public Reservation saveReservation(Reservation reservation) {
-        if(reservation.getidReservation() == null){
+        if (reservation.getidReservation() == null) {
             reservation.setstatus("created");
+            String startDate = reservation.getstartDate() + "T00:00:00.000+00:00";
+            String devolutionDate = reservation.getdevolutionDate() + "T00:00:00.000+00:00";
+            reservation.setstartDate(startDate);
+            reservation.setdevolutionDate(devolutionDate);
             return ReservationRepository.saveReservation(reservation);
-        }
-        else{
+        } else {
             Optional<Reservation> reservationAux = ReservationRepository.getReservation(reservation.getidReservation());
-            if(reservationAux.isEmpty()){
+            if (reservationAux.isEmpty()) {
                 reservation.setstatus("created");
-                return ReservationRepository.saveReservation(reservation); 
-            }else{
+                String startDate = reservation.getstartDate() + "T00:00:00.000+00:00";
+                String devolutionDate = reservation.getdevolutionDate() + "T00:00:00.000+00:00";
+                reservation.setstartDate(startDate);
+                reservation.setdevolutionDate(devolutionDate);
+                return ReservationRepository.saveReservation(reservation);
+            } else {
                 return reservation;
             }
         }
-        
+
     }
 }
