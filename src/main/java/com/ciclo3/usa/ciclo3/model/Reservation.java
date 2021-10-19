@@ -36,7 +36,8 @@ public class Reservation implements Serializable {
     @JsonIgnoreProperties({"messages","reservations"})
     Client client;
     
-    private Integer score;
+    //private Integer score;
+    private String score;
    
 
     //se estable el get set de id
@@ -88,10 +89,10 @@ public class Reservation implements Serializable {
     }
 
     //se estable el get set de fechaEntrega
-    public Integer getscore() {
+    public String getscore() {
         return score;
     }
-    public void setscore(Integer score) {
+    public void setscore(String score) {
         this.score = score;
     }
 
