@@ -26,7 +26,6 @@ public class reservationService {
     public Reservation saveReservation(Reservation reservation) {
         if (reservation.getidReservation() == null) {
             reservation.setstatus("created");
-            reservation.setscore("None");
             String startDate = reservation.getstartDate() + "T00:00:00.000+00:00";
             String devolutionDate = reservation.getdevolutionDate() + "T00:00:00.000+00:00";
             reservation.setstartDate(startDate);
@@ -36,7 +35,6 @@ public class reservationService {
             Optional<Reservation> reservationAux = ReservationRepository.getReservation(reservation.getidReservation());
             if (reservationAux.isEmpty()) {
                 reservation.setstatus("created");
-                reservation.setscore("None");
                 String startDate = reservation.getstartDate() + "T00:00:00.000+00:00";
                 String devolutionDate = reservation.getdevolutionDate() + "T00:00:00.000+00:00";
                 reservation.setstartDate(startDate);

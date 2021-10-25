@@ -3,7 +3,7 @@ package com.ciclo3.usa.ciclo3.web;
 import java.util.List;
 import java.util.Optional;
 
-import com.ciclo3.usa.ciclo3.model.car;
+import com.ciclo3.usa.ciclo3.model.Carro;
 import com.ciclo3.usa.ciclo3.service.carService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +24,18 @@ public class carController {
     private carService CarService;
 
     @GetMapping("/all")
-    public List<car> getAll() {
+    public List<Carro> getAll() {
         return CarService.getAllCar();
     }
 
-    @GetMapping("/{id}")
-    public Optional<car> getId(@PathVariable("id") Integer id) {
+    @GetMapping("/delete/{id}")
+    public Optional<Carro> getId(@PathVariable("id") Integer id) {
         return CarService.getCar(id);
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody car Car) {
+    public void save(@RequestBody Carro Car) {
         CarService.saveCar(Car);
     }
 }

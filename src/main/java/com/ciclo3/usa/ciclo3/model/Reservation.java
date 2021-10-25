@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,15 +30,17 @@ public class Reservation implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idCar")
     @JsonIgnoreProperties("reservations")
-    car car;
+    Carro car;
 
     @ManyToOne
     @JoinColumn(name = "idClient")
     @JsonIgnoreProperties({"messages","reservations"})
     Client client;
     
-    //private Integer score;
-    private String score;
+    @OneToOne
+    @JoinColumn(name = "idScore")
+    @JsonIgnoreProperties({"vvv","ddd"})
+    Score score;
    
 
     //se estable el get set de id
@@ -73,10 +76,10 @@ public class Reservation implements Serializable {
     }
     
     //se estable el get set  del carro asociado al mensaje
-    public car getcar() {
+    public Carro getcar() {
         return car;
     }
-    public void setcar(car car) {
+    public void setcar(Carro car) {
         this.car = car;
     }
 
@@ -89,10 +92,10 @@ public class Reservation implements Serializable {
     }
 
     //se estable el get set de fechaEntrega
-    public String getscore() {
+    public Score getscore() {
         return score;
     }
-    public void setscore(String score) {
+    public void setscore(Score score) {
         this.score = score;
     }
 

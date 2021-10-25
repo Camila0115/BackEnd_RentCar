@@ -23,7 +23,7 @@ public class Message implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idCar")
     @JsonIgnoreProperties({"messages","reservations"})
-    car car;
+    Carro car;
     @ManyToOne
     @JoinColumn(name = "idClient")
     @JsonIgnoreProperties({"messages","reservations"})
@@ -47,10 +47,10 @@ public class Message implements Serializable {
     }
 
     //se estable el get set  del carro asociado al mensaje
-    public car getcar() {
+    public Carro getcar() {
         return car;
     }
-    public void setcar(car car) {
+    public void setcar(Carro car) {
         this.car = car;
     }
 
