@@ -35,4 +35,26 @@ public class gamaService {
         }
         
     }
+
+    public Gama update(Gama gama) {
+        if (gama.getidGama() != null) {
+            Optional<Gama> GamatAux = GamaRepository.getGama(gama.getidGama());
+            if (gama.getname() != null) {
+                GamatAux.get().setNombre(gama.getname());
+            }
+            if (gama.getdescription() != null) {
+                GamatAux.get().setdescription(gama.getdescription());
+            }
+            return GamaRepository.saveGama(GamatAux.get());
+        }
+        return gama;
+    }
+
+    public boolean deleteClient (int IdClient) {
+        Boolean aBoolean = getGama(IdClient).map(gama ->{
+            GamaRepository.deleteGama(gama);
+            return true;
+        }).orElse(false);
+        return aBoolean;
+    }
 }

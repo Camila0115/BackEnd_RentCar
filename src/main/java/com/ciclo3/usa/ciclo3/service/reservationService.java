@@ -46,4 +46,32 @@ public class reservationService {
         }
 
     }
+
+    public Reservation update(Reservation reservacion) {
+        if (reservacion.getidReservation() != null) {
+            Optional<Reservation> mensajetAux = ReservationRepository.getReservation(reservacion.getidReservation());
+            if (reservacion.getstartDate() != null) {
+                mensajetAux.get().setstartDate(reservacion.getstartDate());
+            }
+            if (reservacion.getdevolutionDate() != null) {
+                mensajetAux.get().setdevolutionDate(reservacion.getdevolutionDate());
+            }
+            if (reservacion.getclient() != null) {
+                mensajetAux.get().setclient(reservacion.getclient());
+            }
+            if (reservacion.getcar() != null) {
+                mensajetAux.get().setcar(reservacion.getcar());
+            }
+            return ReservationRepository.saveReservation(mensajetAux.get());
+        }
+        return reservacion;
+    }
+
+    public boolean deleteReservation(int IdMensaje) {
+        Boolean aBoolean = getReservation(IdMensaje).map(reservation ->{
+            ReservationRepository.deleteReservation(reservation);
+            return true;
+        }).orElse(false);
+        return aBoolean;
+    }
 }

@@ -8,9 +8,11 @@ import com.ciclo3.usa.ciclo3.service.carService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -28,7 +30,7 @@ public class carController {
         return CarService.getAllCar();
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/{id}")
     public Optional<Carro> getId(@PathVariable("id") Integer id) {
         return CarService.getCar(id);
     }
@@ -37,5 +39,18 @@ public class carController {
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody Carro Car) {
         CarService.saveCar(Car);
+    }
+
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void update(@RequestBody Carro car){
+        CarService.update(car);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public List<Carro>  delete(@PathVariable ("id") int idcar) {
+        CarService.deleteCar(idcar);
+        return CarService.getAllCar();
     }
 }

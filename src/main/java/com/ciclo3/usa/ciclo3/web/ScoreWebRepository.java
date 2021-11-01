@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,11 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/Score")
 @CrossOrigin(origins = "*", methods={RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ScoreWebRepository {
-    @GetMapping("/holaMundoScore")
-    public String saludad(){
-    return "Hola Mundo Score";
-    }
-    
+       
     @Autowired
     private ScoreServices servicios;
     @GetMapping("/all")
@@ -50,5 +47,11 @@ public class ScoreWebRepository {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable ("id") int idScore) {
         return servicios.deleteScore(idScore);
+    }
+    
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Score update(@RequestBody Score score){
+        return servicios.update(score);
     }
 }
