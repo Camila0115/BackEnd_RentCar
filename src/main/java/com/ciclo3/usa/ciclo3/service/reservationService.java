@@ -97,11 +97,12 @@ public class reservationService {
     public List<ReportClient> ReportClient() {
         List<ReportClient> respuesta = new ArrayList<>(); 
         List<Object[]> reporte = ReservationRepository.ReportClient();
-        for(int i=0;i<reporte.size();i++){
+        for(int i=reporte.size()-1;i>=0;){
             Long total = (Long) reporte.get(i)[0];
             Client cliente = (Client) reporte.get(i)[1];
             ReportClient report = new ReportClient(total,cliente);
             respuesta.add(report);
+            i=i-1;
         }
         return respuesta;
     }
