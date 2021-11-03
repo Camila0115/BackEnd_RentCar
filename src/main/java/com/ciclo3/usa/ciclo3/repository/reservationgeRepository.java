@@ -3,7 +3,7 @@ package com.ciclo3.usa.ciclo3.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,4 +28,16 @@ public class reservationgeRepository {
     public void deleteReservation(Reservation reservation){
         ReservationCrudRepository.delete(reservation);
     }
+    
+    public List<Reservation> ReportReservationsDate(Date dateOne, Date dateTow){
+        return ReservationCrudRepository.findAllByStartDateAfterAndStartDateBefore(dateOne, dateTow);
+    }
+    public List<Reservation> ReportCantState(String estado){
+        return ReservationCrudRepository.findAllByStatus(estado);
+    }
+    
+    public List<Object[]> ReportClient(){
+        return ReservationCrudRepository.countClientsReport();
+    }
+
 }

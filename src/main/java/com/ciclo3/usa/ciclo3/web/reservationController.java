@@ -3,6 +3,8 @@ package com.ciclo3.usa.ciclo3.web;
 import java.util.List;
 import java.util.Optional;
 
+import com.ciclo3.usa.ciclo3.model.ReportStatus;
+import com.ciclo3.usa.ciclo3.model.ReportClient;
 import com.ciclo3.usa.ciclo3.model.Reservation;
 import com.ciclo3.usa.ciclo3.service.reservationService;
 
@@ -52,4 +54,22 @@ public class reservationController {
     public boolean delete(@PathVariable ("id") int idreservacion) {
         return ReservationService.deleteReservation(idreservacion);
     }
+
+    //Reto 5
+
+    @GetMapping("/report-dates/{dateOne}/{datetwo}")
+    public List<Reservation> ReportReservationsDate(@PathVariable("dateOne") String DateOne,@PathVariable("datetwo") String DateTwo) {
+        return ReservationService.ReportReservationsDate(DateOne,DateTwo);
+    }
+
+    @GetMapping("/report-status")
+    public ReportStatus ReportCantState() {
+        return ReservationService.ReportCantState();
+    }
+
+    @GetMapping("/report-clients")
+    public List<ReportClient> ReportClient() {
+        return ReservationService.ReportClient();
+    }
+    
 }

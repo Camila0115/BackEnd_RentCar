@@ -1,11 +1,18 @@
 package com.ciclo3.usa.ciclo3.service;
 
+import com.ciclo3.usa.ciclo3.model.Client;
+import com.ciclo3.usa.ciclo3.model.ReportClient;
+import com.ciclo3.usa.ciclo3.model.ReportStatus;
 import com.ciclo3.usa.ciclo3.model.Reservation;
 import com.ciclo3.usa.ciclo3.repository.reservationgeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,20 +32,10 @@ public class reservationService {
 
     public Reservation saveReservation(Reservation reservation) {
         if (reservation.getidReservation() == null) {
-            reservation.setstatus("created");
-            String startDate = reservation.getstartDate() + "T00:00:00.000+00:00";
-            String devolutionDate = reservation.getdevolutionDate() + "T00:00:00.000+00:00";
-            reservation.setstartDate(startDate);
-            reservation.setdevolutionDate(devolutionDate);
             return ReservationRepository.saveReservation(reservation);
         } else {
             Optional<Reservation> reservationAux = ReservationRepository.getReservation(reservation.getidReservation());
             if (reservationAux.isEmpty()) {
-                reservation.setstatus("created");
-                String startDate = reservation.getstartDate() + "T00:00:00.000+00:00";
-                String devolutionDate = reservation.getdevolutionDate() + "T00:00:00.000+00:00";
-                reservation.setstartDate(startDate);
-                reservation.setdevolutionDate(devolutionDate);
                 return ReservationRepository.saveReservation(reservation);
             } else {
                 return reservation;
@@ -74,4 +71,39 @@ public class reservationService {
         }).orElse(false);
         return aBoolean;
     }
+
+    
+    public List<Reservation> ReportReservationsDate(String dateOne, String dateTow) {
+
+        SimpleDateFormat parser = new SimpleDateFormat("yyy-MM-dd");
+        Date dateO = new Date();
+        Date dateT = new Date();
+        try{
+            dateO = parser.parse(dateOne);
+            dateT = parser.parse(dateTow);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        return ReservationRepository.ReportReservationsDate(dateO,dateT);
+    }
+
+    public ReportStatus ReportCantState() {
+        List<Reservation> completed = ReservationRepository.ReportCantState("completed");
+        List<Reservation> cancelled = ReservationRepository.ReportCantState("cancelled");
+        ReportStatus respuesta = new ReportStatus(completed.size(),cancelled.size());
+        return respuesta;
+    }
+
+    public List<ReportClient> ReportClient() {
+        List<ReportClient> respuesta = new ArrayList<>(); 
+        List<Object[]> reporte = ReservationRepository.ReportClient();
+        for(int i=0;i<reporte.size();i++){
+            Long total = (Long) reporte.get(i)[0];
+            Client cliente = (Client) reporte.get(i)[1];
+            ReportClient report = new ReportClient(total,cliente);
+            respuesta.add(report);
+        }
+        return respuesta;
+    }
+    
 }
