@@ -1,8 +1,7 @@
 package com.ciclo3.usa.ciclo3.model;
 
 import java.io.Serializable;
-//import java.sql.Date;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,8 +21,8 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReservation;
-    private Date startDate;
-    private Date devolutionDate;
+    private Date  startDate;
+    private Date  devolutionDate;
     //private String startDate;
     //private String devolutionDate;
     private String status;
@@ -53,10 +52,10 @@ public class Reservation implements Serializable {
     }
 
     //se estable el get set de fechaInicio
-    public Date getstartDate() {
+    public Date  getstartDate() {
         return startDate;
     }
-    public void setstartDate(Date startDate) {
+    public void setstartDate(Date  startDate) {
         this.startDate = startDate;
     }
 
@@ -69,10 +68,10 @@ public class Reservation implements Serializable {
     }
 
     //se estable el get set de status
-    public Date getdevolutionDate() {
+    public Date  getdevolutionDate() {
         return devolutionDate;
     }
-    public void setdevolutionDate(Date devolutionDate) {
+    public void setdevolutionDate(Date  devolutionDate) {
         this.devolutionDate = devolutionDate;
     }
     
